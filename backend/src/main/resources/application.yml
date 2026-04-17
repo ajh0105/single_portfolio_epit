@@ -1,0 +1,70 @@
+spring:
+  application:
+    name: epit-backend
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/epit_db}
+    username: ${SPRING_DATASOURCE_USERNAME:epit_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:epit_password}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        default_batch_fetch_size: 100
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 300000
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: Asia/Seoul
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+jwt:
+  secret: ${JWT_SECRET:your-256-bit-secret-key-change-in-production-must-be-at-least-256-bits}
+  access-token-expiry-ms: 900000      # 15분
+  refresh-token-expiry-ms: 604800000  # 7일
+
+ai-server:
+  url: ${AI_SERVER_URL:http://localhost:8000}
+  timeout-seconds: 30
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+logging:
+  level:
+    com.epit: DEBUG
+    org.springframework.security: INFO

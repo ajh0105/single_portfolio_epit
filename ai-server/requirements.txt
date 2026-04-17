@@ -1,0 +1,29 @@
+fastapi==0.110.2
+uvicorn[standard]==0.29.0
+pydantic==2.7.1
+pydantic-settings==2.2.1
+
+# AI/ML
+torch==2.3.0
+torchvision==0.18.0
+ultralytics==8.2.0        # YOLOv8
+numpy==1.26.4
+scikit-learn==1.4.2
+xgboost==2.0.3
+opencv-python-headless==4.9.0.80
+Pillow==10.3.0
+
+# Database
+asyncpg==0.29.0
+sqlalchemy[asyncio]==2.0.29
+
+# Async tasks
+celery==5.3.6
+redis==5.0.4
+
+# HTTP
+httpx==0.27.0
+python-multipart==0.0.9
+
+# Utils
+python-dotenv==1.0.1
