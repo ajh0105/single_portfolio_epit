@@ -1,0 +1,85 @@
+# ── 환경 변수 / 시크릿 ────────────────────────────────
+.env
+.env.*
+!.env.example
+*.env.local
+*.pem
+*.key
+*.crt
+*.cert
+docker-compose.override.yml
+
+# ── AI 모델 가중치 (대용량 바이너리) ─────────────────
+ai-server/app/models/*.pt
+ai-server/app/models/*.pkl
+ai-server/app/models/*.h5
+ai-server/app/models/*.onnx
+ai-server/app/models/*.bin
+ai-server/app/models/*.weights
+ai-server/app/models/*.safetensors
+
+# ── Java / Spring Boot ────────────────────────────────
+backend/target/
+backend/.gradle/
+backend/build/
+backend/out/
+*.class
+*.jar
+*.war
+*.ear
+
+# ── Node / Vue ────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.env*
+!frontend/.env.example
+
+# ── Python ────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── 미디어 / 대용량 바이너리 ──────────────────────────
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.iso
+
+# ── IDE ───────────────────────────────────────────────
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+nbproject/
+
+# ── OS ────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# ── Docker 볼륨 (로컬 개발) ───────────────────────────
+pgdata/
+redisdata/
+
+# ── 로그 / 임시 파일 ──────────────────────────────────
+*.log
+logs/
+*.tmp
+*.swp
+*.swo

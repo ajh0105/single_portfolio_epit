@@ -1,0 +1,36 @@
+/* 전역 폰트 + 여백 reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Nanum Gothic', 'Apple SD Gothic Neo', '맑은 고딕', Malgun Gothic, sans-serif !important;
+}
+
+/* Element Plus 컴포넌트 전체에 나눔고딕 적용 */
+.el-button,
+.el-input,
+.el-select,
+.el-table,
+.el-tag,
+.el-menu,
+.el-menu-item,
+.el-card,
+.el-dialog,
+.el-descriptions,
+.el-form-item,
+.el-badge,
+.el-progress,
+.el-message-box,
+.el-notification,
+.el-date-picker,
+.el-dialog__title,
+.el-descriptions__label,
+.el-descriptions__content,
+.el-table__header th,
+.el-table__body td {
+  font-family: 'Nanum Gothic', 'Apple SD Gothic Neo', '맑은 고딕', Malgun Gothic, sans-serif !important;
+}

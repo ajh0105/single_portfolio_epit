@@ -1,0 +1,8 @@
+requests==2.32.3
+schedule==1.2.2
+pillow==10.3.0
+# Raspberry Pi 환경에서만:
+# picamera2==0.3.19
+# RPi.GPIO==0.7.1
+# pyserial==3.5       # Modbus RTU (RS-485)
+# pymodbus==3.6.8     # Modbus TCP/RTU

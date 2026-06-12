@@ -1,0 +1,5 @@
+# AI 모델 가중치 파일 위치
+# yolov8_vehicle.pt - YOLO 차량 감지 모델
+# lstm_phm.pt - LSTM 장비 고장 예측 모델
+# phm_scaler.pkl - PHM 데이터 정규화 스케일러
+# traffic_xgb.pkl - XGBoost 교통 위험도 분류 모델

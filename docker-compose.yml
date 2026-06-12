@@ -1,0 +1,122 @@
+name: epit
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: epit-postgres
+    environment:
+      POSTGRES_DB: epit
+      POSTGRES_USER: epit
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=ko_KR.UTF-8"
+      PGCLIENTENCODING: UTF8
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U epit -d epit"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - epit-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: epit-redis
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - epit-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: epit-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/epit
+      SPRING_DATASOURCE_USERNAME: epit
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PASSWORD: ${REDIS_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ACCESS_EXP_MIN: 30
+      JWT_REFRESH_EXP_DAYS: 14
+      INTERNAL_API_TOKEN: ${INTERNAL_API_TOKEN}
+      AI_SERVER_URL: http://ai-server:8000
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    expose:
+      - "8080"
+    networks:
+      - epit-net
+    restart: unless-stopped
+
+  ai-server:
+    build:
+      context: ./ai-server
+      dockerfile: Dockerfile
+    container_name: epit-ai-server
+    environment:
+      BACKEND_URL: http://backend:8080
+      INTERNAL_API_TOKEN: ${INTERNAL_API_TOKEN}
+      MODEL_DIR: /app/app/models
+      LOG_LEVEL: info
+    volumes:
+      - ./ai-server/app/models:/app/app/models
+    depends_on:
+      - backend
+    expose:
+      - "8000"
+    networks:
+      - epit-net
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: epit-frontend
+    expose:
+      - "80"
+    networks:
+      - epit-net
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: epit-nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - epit-net
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  epit-net:
+    name: epit-net
+    driver: bridge
