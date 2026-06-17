@@ -7,6 +7,17 @@
         <p>현대자동차그룹 초고속 전기차 충전 네트워크</p>
       </div>
 
+      <!-- 데모 안내 -->
+      <el-alert v-if="isDemo" type="info" :closable="false" style="margin-bottom: 20px; border-radius: 8px">
+        <template #title>
+          <strong>포트폴리오 데모 모드</strong>
+        </template>
+        <div style="font-size: 12px; margin-top: 4px; line-height: 1.6">
+          실제 백엔드 없이 목업 데이터로 동작합니다.<br>
+          아이디 <strong>admin</strong> / 비밀번호 <strong>admin1234</strong>로 로그인하세요.
+        </div>
+      </el-alert>
+
       <el-form :model="form" @submit.prevent="handleLogin" label-position="top">
         <el-form-item label="아이디">
           <el-input v-model="form.username" placeholder="아이디 입력" prefix-icon="User" size="large" />
@@ -33,6 +44,7 @@ const router = useRouter()
 const authStore = useAuthStore()
 const loading = ref(false)
 const errorMsg = ref('')
+const isDemo = import.meta.env.VITE_DEMO_MODE === 'true'
 const form = reactive({ username: 'admin', password: 'admin1234' })
 
 async function handleLogin() {

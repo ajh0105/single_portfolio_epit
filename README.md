@@ -2,6 +2,35 @@
 
 현대자동차그룹 E-pit 초고속 전기차 충전 네트워크를 위한 AI 기반 통합 관제 플랫폼
 
+## 라이브 데모
+
+| 구분 | 링크 | 설명 |
+|------|------|------|
+| 🖥️ **관제 대시보드** | [GitHub Pages 데모](https://ajh0105.github.io/epit-smart-charging/) | 프론트엔드 전체 UI (목업 데이터) |
+| 🤖 **AI 모델 체험** | [HuggingFace Spaces](https://huggingface.co/spaces) | YOLOv8 불법주차 감지 / LSTM 고장예측 |
+
+> **데모 로그인**: ID `admin` / PW `admin1234`
+>
+> GitHub Pages 버전은 실제 백엔드 없이 목업 데이터로 동작합니다.
+> 실시간 WebSocket, AI 추론 등 백엔드 기능은 HuggingFace Spaces에서 체험하세요.
+
+## 포트폴리오 구성
+
+```
+GitHub Pages (정적 데모)
+└─ Vue 3 SPA — 전체 화면 구성, 필터/정렬, ECharts 차트, PHM 진단 리포트
+   └─ 목업 인터셉터로 백엔드 없이 완전 동작
+
+HuggingFace Spaces (AI 기능 데모)
+└─ YOLOv8: 차량 이미지 업로드 → EV/비EV 분류 + 불법주차 감지
+└─ LSTM: 센서값 입력 → 고장 확률 예측
+└─ XGBoost: 교통 데이터 입력 → 위험도 분류
+
+실제 운영 환경 (Docker Compose)
+└─ Spring Boot 백엔드 + FastAPI AI 서버 + PostgreSQL + Redis
+   └─ docker compose up -d 로 전체 스택 로컬 실행 가능
+```
+
 ## 프로젝트 정보
 
 | 항목 | 내용 |

@@ -5,6 +5,7 @@ let client: Client | null = null
 const subscriptions = new Map<string, StompSubscription>()
 
 export function connect(onConnected?: () => void): void {
+  if (import.meta.env.VITE_DEMO_MODE === 'true') return
   if (client?.connected) return
 
   client = new Client({

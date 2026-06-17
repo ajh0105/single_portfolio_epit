@@ -43,6 +43,14 @@
         </div>
       </el-header>
 
+      <!-- 데모 배너 -->
+      <div v-if="isDemo" class="demo-banner">
+        🎯 포트폴리오 데모 모드 — 목업 데이터로 동작합니다.
+        AI 모델 기능은
+        <a href="https://huggingface.co/spaces" target="_blank" rel="noopener" class="demo-link">HuggingFace Spaces</a>
+        에서 체험할 수 있습니다.
+      </div>
+
       <!-- 메인 콘텐츠: padding 0, 꽉 차게 -->
       <el-main style="padding: 0; background: #f0f2f5; overflow-y: auto; flex: 1">
         <router-view />
@@ -62,6 +70,7 @@ const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 const alertStore = useAlertStore()
+const isDemo = import.meta.env.VITE_DEMO_MODE === 'true'
 
 const titleMap: Record<string, string> = {
   '/dashboard': '통합 대시보드',
@@ -105,6 +114,15 @@ onMounted(() => {
   border-bottom: 1px solid #ffffff1a;
   flex-shrink: 0;
 }
+.demo-banner {
+  background: #e6f4ff;
+  border-bottom: 1px solid #91caff;
+  padding: 6px 16px;
+  font-size: 12px;
+  color: #0958d9;
+  flex-shrink: 0;
+}
+.demo-link { color: #0958d9; font-weight: 600; }
 .menu-badge {
   margin-left: auto;
   background: #f56c6c;

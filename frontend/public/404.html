@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>E-pit 스마트 관제 시스템</title>
+  <script>
+    // GitHub Pages SPA 라우팅 — 경로를 쿼리스트링으로 인코딩해 index.html로 리다이렉트
+    var l = window.location
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, 2).join('/') +
+      '/?p=/' + l.pathname.slice(1).split('/').slice(1).join('/').replace(/&/g, '~and~') +
+      (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+      l.hash
+    )
+  </script>
+</head>
+<body></body>
+</html>

@@ -7,13 +7,22 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from './App.vue'
 import router from './router'
 
-const app = createApp(App)
+async function bootstrap() {
+  if (import.meta.env.VITE_DEMO_MODE === 'true') {
+    const { setupMockInterceptor } = await import('./api/mockInterceptor')
+    setupMockInterceptor()
+  }
 
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component)
+  const app = createApp(App)
+
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+  }
+
+  app.use(createPinia())
+  app.use(router)
+  app.use(ElementPlus)
+  app.mount('#app')
 }
 
-app.use(createPinia())
-app.use(router)
-app.use(ElementPlus)
-app.mount('#app')
+bootstrap()
