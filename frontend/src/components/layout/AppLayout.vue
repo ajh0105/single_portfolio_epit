@@ -47,7 +47,7 @@
       <div v-if="isDemo" class="demo-banner">
         🎯 포트폴리오 데모 모드 — 목업 데이터로 동작합니다.
         AI 모델 기능은
-        <a href="https://huggingface.co/spaces" target="_blank" rel="noopener" class="demo-link">HuggingFace Spaces</a>
+        <a href="https://huggingface.co/spaces/simonahn/ai_e_pit" target="_blank" rel="noopener" class="demo-link">HuggingFace Spaces</a>
         에서 체험할 수 있습니다.
       </div>
 
